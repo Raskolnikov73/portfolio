@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Калькуляторы для сайтов — больше заявок с вашего сайта</title>
+<meta name="description" content="Делаю калькуляторы стоимости для сайтов потолочных компаний, оконщиков, кухонных студий. Клиент считает цену — вам приходит заявка в Telegram.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Калькуляторы для сайтов — больше заявок">
+<meta property="og:description" content="Калькулятор стоимости на ваш сайт за 3 дня. Клиент считает цену — заявка приходит вам в Telegram.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0F172A;
+  --body: #334155;
+  --mute: #64748B;
+  --line: #E2E8F0;
+  --surface: #F8FAFC;
+  --white: #FFFFFF;
+  --blue: #2563EB;
+  --blue-soft: #EFF6FF;
+  --green: #16A34A;
+  --wa: #25D366;
+  --accent: #F59E0B;
+  color-scheme: light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.6;color:var(--body);background:var(--white)}
+img{max-width:100%;display:block}
+a{color:var(--blue);text-decoration:none}
+
+:root{
+  padding-top:env(safe-area-inset-top,0);
+  padding-bottom:env(safe-area-inset-bottom,0);
+}
+
+/* ═══ LAYOUT ═══ */
+.w{max-width:1080px;margin:0 auto;padding:0 20px}
+@media(min-width:768px){.w{padding:0 32px}}
+section{padding:72px 0}
+@media(max-width:640px){section{padding:48px 0}}
+
+/* ═══ HERO ═══ */
+.hero{
+  background:var(--ink);
+  color:var(--white);
+  padding:0;
+  overflow:hidden;
+  position:relative;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(37,99,235,.18) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(245,158,11,.08) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero .w{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:40px;
+  padding-top:64px;
+  padding-bottom:56px;
+  position:relative;
+  z-index:1;
+}
+@media(min-width:768px){
+  .hero .w{
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    gap:48px;
+    padding-top:80px;
+    padding-bottom:80px;
+  }
+}
+.hero-text{max-width:520px}
+.hero h1{
+  font-size:clamp(1.75rem,5vw,2.75rem);
+  font-weight:800;
+  line-height:1.15;
+  letter-spacing:-.03em;
+  margin:0 0 20px;
+  color:var(--white);
+}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{
+  font-size:1.1rem;
+  line-height:1.55;
+  color:rgba(255,255,255,.7);
+  margin:0 0 32px;
+  max-width:440px;
+}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:12px;
+  font-weight:700;font-size:1rem;
+  border:0;cursor:pointer;
+  transition:transform .15s,box-shadow .15s;
+  text-decoration:none;
+}
+.btn:active{transform:scale(.97)}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-wa:hover{box-shadow:0 8px 24px rgba(37,211,102,.35)}
+.btn-demo{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.2)}
+.btn-demo:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35)}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* Phone mockup */
+.mockup{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+}
+.phone{
+  width:260px;
+  background:#1E293B;
+  border-radius:32px;
+  padding:12px;
+  box-shadow:0 40px 80px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.06);
+  position:relative;
+  z-index:2;
+}
+.phone-notch{
+  width:100px;height:24px;
+  background:#0F172A;
+  border-radius:0 0 14px 14px;
+  margin:0 auto 0;
+  position:relative;
+  top:-12px;
+  margin-bottom:-12px;
+}
+.phone-screen{
+  background:#fff;
+  border-radius:22px;
+  overflow:hidden;
+  aspect-ratio:9/16.5;
+  display:flex;
+  flex-direction:column;
+}
+.ps-head{background:var(--blue);padding:16px 14px 12px;color:#fff}
+.ps-head .ps-logo{font-weight:800;font-size:.85rem;margin-bottom:4px}
+.ps-head .ps-title{font-size:.65rem;opacity:.8;line-height:1.3}
+.ps-bar{display:flex;gap:4px;padding:10px 14px 8px}
+.ps-dot{width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;font-size:.6rem;font-weight:800;display:grid;place-items:center}
+.ps-dot.dim{background:#E2E8F0;color:#94A3B8}
+.ps-line{flex:1;height:2px;background:#E2E8F0;align-self:center;border-radius:1px}
+.ps-line.on{background:var(--blue)}
+.ps-body{flex:1;padding:10px 14px;display:flex;flex-direction:column;gap:8px}
+.ps-label{font-size:.55rem;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.05em}
+.ps-cards{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ps-card{
+  border:1.5px solid #E2E8F0;border-radius:8px;padding:8px 6px;text-align:center;font-size:.55rem;font-weight:600;color:#334155;
+  background:#fff;
+}
+.ps-card.sel{border-color:var(--blue);background:#EFF6FF;color:var(--blue)}
+.ps-card .cg{display:block;height:28px;border-radius:5px;margin-bottom:5px}
+.cg-m{background:linear-gradient(145deg,#E7EAEE,#D3D8DF)}
+.cg-g{background:linear-gradient(115deg,#DCE6F5,#F8FBFF 33%,#BFD0E8 60%,#A9BEDC)}
+.ps-row{display:flex;justify-content:space-between;align-items:center;font-size:.6rem}
+.ps-row span:last-child{font-weight:700;color:var(--ink)}
+.ps-pill{
+  margin-top:auto;
+  background:var(--blue);color:#fff;
+  border-radius:0 0 22px 22px;
+  padding:10px 14px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.6rem;
+}
+.ps-pill b{font-size:.85rem}
+
+/* Floating badge */
+.badge{
+  position:absolute;
+  background:#fff;
+  border-radius:12px;
+  padding:12px 16px;
+  box-shadow:0 12px 40px rgba(15,23,42,.18);
+  z-index:4;
+  white-space:nowrap;
+}
+.badge-tg{
+  right:-30px;top:30%;
+  display:flex;align-items:center;gap:10px;
+  font-size:.85rem;font-weight:600;color:var(--ink);
+}
+.badge-tg svg{width:28px;height:28px;flex:none}
+.badge-tg small{display:block;font-weight:400;color:var(--mute);font-size:.75rem}
+.badge-conv{
+  left:-24px;bottom:18%;
+  text-align:center;
+  font-size:.78rem;color:var(--body);
+}
+.badge-conv b{display:block;font-size:1.6rem;color:var(--green);font-weight:800}
+@media(max-width:767px){
+  .mockup{margin:0 auto;max-width:320px}
+  .badge-tg{right:-10px;top:20%;padding:10px 12px;font-size:.78rem}
+  .badge-tg svg{width:22px;height:22px}
+  .badge-conv{left:-6px;bottom:10%;padding:10px 12px}
+}
+
+/* ═══ PROBLEM ═══ */
+.problem{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.problem .w{max-width:720px;text-align:center}
+.problem h2{font-size:clamp(1.3rem,4vw,1.8rem);font-weight:800;color:var(--ink);margin:0 0 16px;letter-spacing:-.02em}
+.problem p{font-size:1.05rem;color:var(--body);margin:0 auto;max-width:600px}
+.problem p+p{margin-top:12px}
+.problem strong{color:var(--ink)}
+
+/* ═══ BENEFITS ═══ */
+.benefits h2{text-align:center;font-size:clamp(1.3rem,4vw,1.8rem);font-weight:800;color:var(--ink);margin:0 0 40px;letter-spacing:-.02em}
+.ben-grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:640px){.ben-grid{grid-template-columns:1fr 1fr 1fr}}
+.ben{
+  padding:28px 24px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--white);
+}
+.ben-icon{
+  width:48px;height:48px;border-radius:12px;
+  display:grid;place-items:center;
+  font-size:1.4rem;
+  margin-bottom:16px;
+}
+.ben-icon.blue{background:var(--blue-soft);color:var(--blue)}
+.ben-icon.green{background:#F0FDF4;color:var(--green)}
+.ben-icon.amber{background:#FFFBEB;color:var(--accent)}
+.ben h3{font-size:1.05rem;font-weight:700;color:var(--ink);margin:0 0 8px}
+.ben p{margin:0;font-size:.95rem;color:var(--body)}
+
+/* ═══ HOW ═══ */
+.how{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.how h2{text-align:center;font-size:clamp(1.3rem,4vw,1.8rem);font-weight:800;color:var(--ink);margin:0 0 40px;letter-spacing:-.02em}
+.steps{display:grid;grid-template-columns:1fr;gap:24px;max-width:680px;margin:0 auto}
+.st{
+  display:grid;
+  grid-template-columns:48px 1fr;
+  gap:16px;
+  align-items:start;
+}
+.st-num{
+  width:48px;height:48px;border-radius:50%;
+  background:var(--blue);color:#fff;
+  font-weight:800;font-size:1.1rem;
+  display:grid;place-items:center;
+  flex:none;
+}
+.st h3{font-size:1.05rem;font-weight:700;color:var(--ink);margin:0 0 4px}
+.st p{margin:0;font-size:.95rem;color:var(--body)}
+
+/* ═══ DEMO ═══ */
+.demo{text-align:center}
+.demo h2{font-size:clamp(1.3rem,4vw,1.8rem);font-weight:800;color:var(--ink);margin:0 0 12px;letter-spacing:-.02em}
+.demo p{margin:0 0 28px;color:var(--body);font-size:1.05rem}
+.demo-frame{
+  max-width:680px;margin:0 auto;
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(15,23,42,.08);
+  background:#fff;
+}
+.demo-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 16px;
+  background:var(--surface);
+  border-bottom:1px solid var(--line);
+}
+.demo-dots{display:flex;gap:6px}
+.demo-dots span{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.demo-url{
+  flex:1;background:#fff;border:1px solid var(--line);border-radius:6px;
+  padding:4px 12px;font-size:.78rem;color:var(--mute);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.demo-body{
+  aspect-ratio:16/9;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;
+  padding:32px;
+}
+.demo-body p{margin:0;color:var(--mute);font-size:.95rem}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{box-shadow:0 8px 24px rgba(37,99,235,.3)}
+
+/* ═══ PRICING ═══ */
+.pricing h2{text-align:center;font-size:clamp(1.3rem,4vw,1.8rem);font-weight:800;color:var(--ink);margin:0 0 12px;letter-spacing:-.02em}
+.pricing>p{text-align:center;color:var(--body);margin:0 0 36px;font-size:1.05rem}
+.price-grid{display:grid;grid-template-columns:1fr;gap:20px;max-width:740px;margin:0 auto}
+@media(min-width:640px){.price-grid{grid-template-columns:1fr 1fr}}
+.price-card{
+  border:1px solid var(--line);border-radius:16px;
+  padding:32px 28px;background:var(--white);
+  display:flex;flex-direction:column;
+}
+.price-card.pop{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue),0 12px 40px rgba(37,99,235,.12);position:relative}
+.price-badge{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  background:var(--blue);color:#fff;font-size:.75rem;font-weight:700;
+  padding:4px 14px;border-radius:20px;white-space:nowrap;
+}
+.price-card h3{font-size:1.1rem;font-weight:700;color:var(--ink);margin:0 0 4px}
+.price-card .price{font-size:2rem;font-weight:800;color:var(--ink);margin:0 0 16px}
+.price-card .price small{font-size:.9rem;font-weight:500;color:var(--mute)}
+.price-card ul{list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:10px}
+.price-card li{font-size:.92rem;color:var(--body);padding-left:24px;position:relative}
+.price-card li::before{content:'✓';position:absolute;left:0;color:var(--green);font-weight:700}
+.price-card .btn{width:100%;justify-content:center;margin-top:auto}
+
+/* ═══ FAQ ═══ */
+.faq{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.faq h2{text-align:center;font-size:clamp(1.3rem,4vw,1.8rem);font-weight:800;color:var(--ink);margin:0 0 32px;letter-spacing:-.02em}
+.faq-list{max-width:680px;margin:0 auto}
+details{border-bottom:1px solid var(--line);padding:0}
+details:last-child{border-bottom:0}
+summary{
+  padding:18px 0;font-weight:600;font-size:1rem;color:var(--ink);
+  cursor:pointer;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{
+  content:'+';font-size:1.4rem;color:var(--mute);font-weight:400;
+  transition:transform .2s;flex:none;width:24px;text-align:center;
+}
+details[open] summary::after{content:'−'}
+details .a{padding:0 0 18px;font-size:.95rem;color:var(--body);line-height:1.6}
+
+/* ═══ CTA ═══ */
+.cta{
+  background:var(--ink);color:var(--white);
+  text-align:center;
+}
+.cta h2{font-size:clamp(1.3rem,4.5vw,2rem);font-weight:800;margin:0 0 12px;color:#fff;letter-spacing:-.02em}
+.cta p{margin:0 0 28px;color:rgba(255,255,255,.65);font-size:1.05rem;max-width:480px;margin-left:auto;margin-right:auto}
+.cta .btn{font-size:1.1rem;padding:16px 36px}
+.cta small{display:block;margin-top:18px;color:rgba(255,255,255,.4);font-size:.85rem}
+
+/* ═══ FOOTER ═══ */
+footer{padding:28px 20px;text-align:center;font-size:.85rem;color:var(--mute)}
+
+/* ═══ A11Y ═══ */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important}}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="w">
+    <div class="hero-text">
+      <h1>Калькулятор на сайт, который <em>приносит заявки</em></h1>
+      <p class="hero-sub">Ваш клиент вводит размеры — сразу видит цену и оставляет заявку. Вам приходит уведомление в Telegram. Установка на сайт — за 3 дня.</p>
+      <div class="hero-cta">
+        <a class="btn btn-wa" href="https://wa.me/79001234567?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BA%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D0%B4%D0%BB%D1%8F%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785c-1.896 0-3.744-.508-5.37-1.475l-.386-.228-3.998 1.049 1.067-3.896-.251-.399a9.7 9.7 0 01-1.49-5.18c0-5.38 4.378-9.757 9.762-9.757a9.7 9.7 0 016.9 2.858 9.7 9.7 0 012.856 6.9c-.003 5.38-4.38 9.758-9.762 9.758zM12.05.004C5.495.004.112 5.383.112 11.94a11.88 11.88 0 001.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 005.683 1.448h.005c6.554 0 11.937-5.38 11.94-11.937A11.86 11.86 0 0020.44 3.49 11.86 11.86 0 0012.05.004z"/></svg>
+          Обсудить в WhatsApp
+        </a>
+        <a class="btn btn-demo" href="#demo">Смотреть демо</a>
+      </div>
+    </div>
+
+    <div class="mockup">
+      <!-- Телефон с имитацией калькулятора -->
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="ps-head">
+            <div class="ps-logo">Потолок<span style="color:#F59E0B">Мастер</span></div>
+            <div class="ps-title">Рассчитайте стоимость за 2 минуты</div>
+          </div>
+          <div class="ps-bar">
+            <span class="ps-dot">1</span><span class="ps-line on"></span>
+            <span class="ps-dot dim">2</span><span class="ps-line"></span>
+            <span class="ps-dot dim">3</span><span class="ps-line"></span>
+            <span class="ps-dot dim">4</span>
+          </div>
+          <div class="ps-body">
+            <div class="ps-label">Фактура потолка</div>
+            <div class="ps-cards">
+              <div class="ps-card sel"><span class="cg cg-m"></span>Матовый</div>
+              <div class="ps-card"><span class="cg cg-g"></span>Глянцевый</div>
+            </div>
+            <div style="margin-top:4px">
+              <div class="ps-label">Площадь</div>
+              <div class="ps-row"><span>12 м²</span><span>4 угла</span></div>
+            </div>
+            <div style="margin-top:2px">
+              <div class="ps-label">Светильники</div>
+              <div class="ps-row"><span>6 точечных</span><span>1 люстра</span></div>
+            </div>
+          </div>
+          <div class="ps-pill"><span>Итого:</span><b>8 480 ₽</b></div>
+        </div>
+      </div>
+
+      <!-- Плашка Telegram -->
+      <div class="badge badge-tg">
+        <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="#26A5E4"/><path d="M5.4 11.6l9.8-4.2c.7-.3 1.3.2 1.1.9l-1.7 8c-.1.5-.5.7-.9.5l-2.6-1.9-1.3 1.2c-.1.2-.3.2-.4.1l.2-2.8 5.1-4.6c.2-.2 0-.3-.3-.1l-6.3 4-2.7-.8c-.6-.2-.6-.6.1-.8z" fill="#fff"/></svg>
+        <div>Новая заявка!<small>Анна, +7 (912) ***-**-45</small></div>
+      </div>
+
+      <!-- Плашка конверсии -->
+      <div class="badge badge-conv">
+        заявок в день<b>×3</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ПРОБЛЕМА ══════════ -->
+<section class="problem">
+  <div class="w">
+    <h2>Посетитель зашёл на сайт. Что дальше?</h2>
+    <p>Он видит «звоните для расчёта» — и уходит к конкуренту, у которого можно посчитать онлайн. <strong>70% посетителей не оставляют заявку</strong>, если не видят цену сразу.</p>
+    <p>Калькулятор решает это: клиент сам вводит размеры, видит стоимость и тут же оставляет заявку. Вы получаете горячего клиента, который уже знает цену и готов обсуждать замер.</p>
+  </div>
+</section>
+
+<!-- ══════════ ПРЕИМУЩЕСТВА ══════════ -->
+<section class="benefits">
+  <div class="w">
+    <h2>Что даёт калькулятор вашему бизнесу</h2>
+    <div class="ben-grid">
+      <div class="ben">
+        <div class="ben-icon blue">📱</div>
+        <h3>Заявки в Telegram</h3>
+        <p>Клиент оставляет заявку — вам мгновенно приходит сообщение с именем, телефоном и всеми параметрами расчёта. Не нужно перезванивать и уточнять.</p>
+      </div>
+      <div class="ben">
+        <div class="ben-icon green">📈</div>
+        <h3>Больше заявок с сайта</h3>
+        <p>Калькулятор вовлекает посетителя: он вводит данные, видит цену и психологически уже «ваш». Конверсия сайта растёт в 2–3 раза.</p>
+      </div>
+      <div class="ben">
+        <div class="ben-icon amber">⚡</div>
+        <h3>Установка за 2 минуты</h3>
+        <p>Вы или ваш вебмастер вставляете одну строку кода на сайт. Работает на любой платформе: Тильда, WordPress, самописный сайт.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ КАК ЭТО РАБОТАЕТ ══════════ -->
+<section class="how">
+  <div class="w">
+    <h2>Как это работает</h2>
+    <div class="steps">
+      <div class="st">
+        <div class="st-num">1</div>
+        <div>
+          <h3>Вы присылаете свой прайс</h3>
+          <p>Цены на полотно, список допуслуг, ваш логотип и цвета. Можно просто скинуть прайс-лист — разберусь сам.</p>
+        </div>
+      </div>
+      <div class="st">
+        <div class="st-num">2</div>
+        <div>
+          <h3>Я делаю калькулятор за 2–3 дня</h3>
+          <p>Подставляю ваши цены, фирменные цвета, настраиваю отправку заявок в Telegram или на почту. Отдаю на проверку.</p>
+        </div>
+      </div>
+      <div class="st">
+        <div class="st-num">3</div>
+        <div>
+          <h3>Устанавливаем на ваш сайт</h3>
+          <p>Одна строка кода — и калькулятор работает на вашем сайте. Если нужно, встрою сам. Заявки начинают приходить сразу.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ДЕМО ══════════ -->
+<section class="demo" id="demo">
+  <div class="w">
+    <h2>Посмотрите, как это выглядит</h2>
+    <p>Рабочий калькулятор — попробуйте ввести размеры комнаты</p>
+    <div class="demo-frame">
+      <div class="demo-bar">
+        <div class="demo-dots"><span></span><span></span><span></span></div>
+        <div class="demo-url">вашакомпания.рф/калькулятор</div>
+      </div>
+      <div class="demo-body">
+        <p>Здесь будет ссылка на ваш демо-калькулятор</p>
+        <a class="btn btn-blue" href="#" id="demoLink" target="_blank" rel="noopener">Открыть демо калькулятор</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ЦЕНЫ ══════════ -->
+<section class="pricing">
+  <div class="w">
+    <h2>Стоимость</h2>
+    <p>Одна оплата — калькулятор ваш навсегда</p>
+    <div class="price-grid">
+      <div class="price-card">
+        <h3>Базовый</h3>
+        <div class="price">5 000 ₽</div>
+        <ul>
+          <li>Калькулятор с вашими ценами</li>
+          <li>Ваши цвета и логотип</li>
+          <li>Адаптив под мобильные</li>
+          <li>Заявки на почту</li>
+          <li>Установка на ваш сайт</li>
+        </ul>
+        <a class="btn btn-demo" href="https://wa.me/79001234567?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B1%D0%B0%D0%B7%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BA%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80" style="color:var(--ink);border-color:var(--line)" target="_blank" rel="noopener">Заказать</a>
+      </div>
+      <div class="price-card pop">
+        <div class="price-badge">Популярный</div>
+        <h3>Полный</h3>
+        <div class="price">12 000 ₽</div>
+        <ul>
+          <li>Всё из базового тарифа</li>
+          <li>Заявки в Telegram-бот</li>
+          <li>Кнопка «Написать в WhatsApp»</li>
+          <li>Несколько комнат в расчёте</li>
+          <li>Расширенный список допуслуг</li>
+          <li>Помощь с текстами и ценами</li>
+        </ul>
+        <a class="btn btn-wa" href="https://wa.me/79001234567?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BF%D0%BE%D0%BB%D0%BD%D1%8B%D0%B9%20%D0%BA%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785c-1.896 0-3.744-.508-5.37-1.475l-.386-.228-3.998 1.049 1.067-3.896-.251-.399a9.7 9.7 0 01-1.49-5.18c0-5.38 4.378-9.757 9.762-9.757a9.7 9.7 0 016.9 2.858 9.7 9.7 0 012.856 6.9c-.003 5.38-4.38 9.758-9.762 9.758zM12.05.004C5.495.004.112 5.383.112 11.94a11.88 11.88 0 001.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 005.683 1.448h.005c6.554 0 11.937-5.38 11.94-11.937A11.86 11.86 0 0020.44 3.49 11.86 11.86 0 0012.05.004z"/></svg>
+          Заказать
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="faq">
+  <div class="w">
+    <h2>Частые вопросы</h2>
+    <div class="faq-list">
+      <details>
+        <summary>А если у меня сайт на Тильде / WordPress / конструкторе?</summary>
+        <div class="a">Калькулятор встраивается одной строкой кода (iframe) и работает на любой платформе: Тильда, WordPress, Wix, Craftum, самописный сайт. Во всех конструкторах есть блок «Вставить код» — туда и вставляется.</div>
+      </details>
+      <details>
+        <summary>Как я буду получать заявки?</summary>
+        <div class="a">В базовом тарифе — на почту. В полном — в Telegram: приходит сообщение с именем, телефоном, параметрами расчёта и итоговой суммой. Можно настроить оба канала одновременно.</div>
+      </details>
+      <details>
+        <summary>Можно поменять цены потом?</summary>
+        <div class="a">Да. Все цены собраны в одном месте в коде — меняете число и сохраняете. Если не хотите лезть в код — напишите мне, поменяю бесплатно в течение дня.</div>
+      </details>
+      <details>
+        <summary>Сколько времени займёт?</summary>
+        <div class="a">Базовый — 2 дня. Полный — 3–4 дня. Считается с момента, как вы пришлёте прайс и пожелания по дизайну.</div>
+      </details>
+      <details>
+        <summary>А если мне не понравится результат?</summary>
+        <div class="a">Перед установкой на сайт вы получите ссылку на готовый калькулятор и сможете всё проверить. Правки — бесплатно, пока не будете довольны. Если совсем не подойдёт — верну деньги.</div>
+      </details>
+      <details>
+        <summary>Я не потолочная компания. Можно под другой бизнес?</summary>
+        <div class="a">Да. Калькуляторы отлично работают для окон, кухонь, заборов, кондиционеров, шкафов-купе, каркасных домов — любого бизнеса, где клиенту важно сразу видеть цену.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA ══════════ -->
+<section class="cta">
+  <div class="w">
+    <h2>Готовы получать больше заявок?</h2>
+    <p>Напишите — обсудим, какой калькулятор нужен для вашего бизнеса. Отвечаю в течение часа.</p>
+    <a class="btn btn-wa" href="https://wa.me/79001234567?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BA%D0%B0%D0%BB%D1%8C%D0%BA%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D0%B4%D0%BB%D1%8F%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:22px;height:22px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785c-1.896 0-3.744-.508-5.37-1.475l-.386-.228-3.998 1.049 1.067-3.896-.251-.399a9.7 9.7 0 01-1.49-5.18c0-5.38 4.378-9.757 9.762-9.757a9.7 9.7 0 016.9 2.858 9.7 9.7 0 012.856 6.9c-.003 5.38-4.38 9.758-9.762 9.758zM12.05.004C5.495.004.112 5.383.112 11.94a11.88 11.88 0 001.588 5.945L.057 24l6.305-1.654a11.88 11.88 0 005.683 1.448h.005c6.554 0 11.937-5.38 11.94-11.937A11.86 11.86 0 0020.44 3.49 11.86 11.86 0 0012.05.004z"/></svg>
+      Написать в WhatsApp
+    </a>
+    <small>Или позвоните: +7 (900) 123-45-67</small>
+  </div>
+</section>
+
+<footer>
+  <div class="w">Калькуляторы для сайтов · 2024–2026</div>
+</footer>
+
+<script>
+// ═══ НАСТРОЙКИ — поменяйте на свои ═══
+const MY = {
+  phone: '+7 (900) 123-45-67',
+  phoneRaw: '79001234567',
+  whatsapp: '79001234567',
+  demoUrl: 'https://raskolnikov73.github.io',
+};
+
+// Подставляем ссылку на демо
+if (MY.demoUrl && MY.demoUrl !== '#') {
+  document.getElementById('demoLink').href = MY.demoUrl;
+}
+
+// WhatsApp ссылки — подставляем номер
+document.querySelectorAll('a[href*="wa.me/79001234567"]').forEach(a => {
+  a.href = a.href.replace('79001234567', MY.whatsapp);
+});
+</script>
+</body>
+</html>
